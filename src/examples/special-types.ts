@@ -11,7 +11,15 @@ isString("3"); // true
 const unknownInpuIsValid = (input: unknown) =>
 	input && (input as string).length;
 
-//never
+//	"Anything is assignable to unknown, but unknown isn't assignable to anything but itself"
+
+let anyValue: any = "any value"; // We can assign anything to any
+let unknownValue: unknown = "unknown value"; // We can assign anything to unknown
+
+let str1: string = anyValue; // Any is assignable to anything
+let str2: string = unknownValue; // Invalid; we can't assign vUnknown to any other type (without an explicit assertion)
+
+//never - "Computer says no!"
 const iIamNeverGoingToTerminate = () => {
 	while (true) {
 		console.log("Infinite loop in progress... please wait");
