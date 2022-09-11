@@ -4,8 +4,8 @@ const genericArrayIsEmpty = <T>(array: T[]) => array.length === 0;
 const anyArrayEmpty = anyArrayIsEmpty([1, 2]);
 const genericArrayEmpty = genericArrayIsEmpty([1, 2]);
 
-const lastValueOfAnyArray = (array: any[]) => array[array.length];
-const lastValueOfGenericArray = <T>(array: T[]) => array[array.length];
+const lastValueOfAnyArray = (array: any[]) => array.at(-1);
+const lastValueOfGenericArray = <T>(array: T[]) => array.at(-1);
 
 const lastOfAny = lastValueOfAnyArray([1, 2]);
 const lastOfGeneric = lastValueOfGenericArray([1, 2]);

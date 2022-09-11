@@ -11,13 +11,13 @@ isString("3"); // true
 const unknownInpuIsValid = (input: unknown) =>
 	input && (input as string).length;
 
-//	"Anything is assignable to unknown, but unknown isn't assignable to anything but itself"
+// "Anything is assignable to unknown, but unknown isn't assignable to anything but itself"
 
 let anyValue: any = "any value"; // We can assign anything to any
 let unknownValue: unknown = "unknown value"; // We can assign anything to unknown
 
 let str1: string = anyValue; // Any is assignable to anything
-let str2: string = unknownValue; // Invalid; we can't assign vUnknown to any other type (without an explicit assertion)
+let str2: string = unknownValue; // Invalid; we can't assign vUnknown to any other type
 
 //never - "Computer says no!"
 const iIamNeverGoingToTerminate = () => {
@@ -68,12 +68,12 @@ type allowedValue =
 type StringOrNot<T> = T extends string ? string : never;
 type isNever = StringOrNot<0>;
 type isString = StringOrNot<string>;
-type isAloString = StringOrNot<"hello">;
+type isAlsoString = StringOrNot<"hello">;
 
-type aOrBeReturnType<T extends Obj1 | Obj2> = (
+type aOrBReturnType<T extends Obj1 | Obj2> = (
 	T: Obj1 | Obj2
 ) => T extends Obj1 ? string : number;
-const aOrB: aOrBeReturnType<Obj1 | Obj2> = (obj: Obj1 | Obj2) =>
+const aOrB: aOrBReturnType<Obj1 | Obj2> = (obj: Obj1 | Obj2) =>
 	obj.hasOwnProperty("a") ? (obj.a as string) : (obj.b as number);
 
 aOrB(myObj1);

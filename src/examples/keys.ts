@@ -1,3 +1,15 @@
+interface MyObject {
+	name: string;
+	value: number;
+}
+
+type MyObjectKey = keyof MyObject; // "name" | "value"
+
+const getObjectValueFromKey = (obj: MyObject, key: keyof MyObject) => obj[key];
+
+getObjectValueFromKey({ name: "Oscar", value: 30 }, "name");
+getObjectValueFromKey({ name: "Oscar", value: 30 }, "not a key");
+
 interface A {
 	requiredAProp: string;
 	optionalAProp?: number;
@@ -7,38 +19,38 @@ interface B extends A {
 	optionalAProp: number;
 }
 
-type SameAsAButNoOptionalProps = A & {
+// Mapped types
+type SameAsAButNoOptionalProps = {
 	[key in keyof A]-?: A[key];
 };
 
-type SameAsAButAllOptionalProps = A & {
+const aButNoOptionalProps: SameAsAButNoOptionalProps = {
+	optionalAProp: 0,
+	requiredAProp: "hei",
+	other: "other",
+};
+
+type SameAsAButAllOptionalProps = {
 	[key in keyof A]?: A[key];
 };
 
-interface WillNotWork extends A {
-  [key in keyof A]-?: A[key];
-}
+const aOnlyOptionalProps: SameAsAButAllOptionalProps = {};
 
-interface WillWorkButNotTheSame {
-  [key: keyof A];
-}
+type SameAsAButAllOptionalPropAlt = {
+	[key in keyof A]+?: A[key];
+};
 
-const t: WillWorkButNotTheSame = {
-  optionalAProp: 0,
-  requiredAProp: "hei",
-  no: "hei"
-}
+const aOnlyOptionalPropsAlt: SameAsAButAllOptionalPropAlt = {};
 
-interface WillWork {
-  [key: string]: any;
-}
+// As of TS 2.7.2 union type signatures are not allowed in interfaces
+// interface WillNotWork {
+//   [key: keyof A]-?: A[typeof key]; // The -? operator does not work on interface properties
+// }
 
-interface MyObject {
-  name: string;
-  value: number;
-}
+// interface WillNotWorkAndNotTheSame {
+// 	[key: keyof A]: A[typeof key]; // An index signature parameter type cannot be a literal type or generic type
+// }
 
-const getObjectValueFromKey = (obj : MyObject, key: keyof MyObject) => obj[key];
-
-getObjectValueFromKey({name: "Oscar", value: 30}, "name");
-getObjectValueFromKey({name: "Oscar", value: 30}, "dude");
+// interface WillNotWorkAndNotTheSame {
+// 	[key: keyof A]: A[keyof A]; // An index signature parameter type cannot be a literal type or generic type
+// }
