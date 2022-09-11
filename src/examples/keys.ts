@@ -4,8 +4,10 @@ interface MyObject {
 }
 
 type MyObjectKey = keyof MyObject; // "name" | "value"
+const aKeyOfMyObject: MyObjectKey = "name";
 
 const getObjectValueFromKey = (obj: MyObject, key: keyof MyObject) => obj[key];
+const getObjectValueFromKeyAlt = (obj: MyObject, key: MyObjectKey) => obj[key];
 
 getObjectValueFromKey({ name: "Oscar", value: 30 }, "name");
 getObjectValueFromKey({ name: "Oscar", value: 30 }, "not a key");
@@ -42,11 +44,11 @@ type SameAsAButAllOptionalPropAlt = {
 
 const aOnlyOptionalPropsAlt: SameAsAButAllOptionalPropAlt = {};
 
-// As of TS 2.7.2 union type signatures are not allowed in interfaces
 // interface WillNotWork {
 //   [key: keyof A]-?: A[typeof key]; // The -? operator does not work on interface properties
 // }
 
+// As of TS 2.7.2 union type signatures are not allowed in interfaces
 // interface WillNotWorkAndNotTheSame {
 // 	[key: keyof A]: A[typeof key]; // An index signature parameter type cannot be a literal type or generic type
 // }
