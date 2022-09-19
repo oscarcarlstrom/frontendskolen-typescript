@@ -12,9 +12,9 @@ const toyota = cars.find(({ brand }) => brand === "Toyota");
 
 fruits.push("Pinapple");
 const fruits1: ReadonlyArray<string> = ["Orange", "Apple"];
-fruits1.push("Pinapple");
+fruits1.push("Pineapple");
 const fruits2: readonly string[] = ["Orange", "Apple"];
-fruits2.push("Pinapple");
+fruits2.push("Pineapple");
 
 type customHookReturnType = [string, (newValue: string) => void];
 function customHook(initalValue: string): customHookReturnType {
